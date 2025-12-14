@@ -8,7 +8,11 @@ a { outline:0; text-decoration:none; color:#F0F0F0;}
 img { border:0;}
 
 body { 
-    background: radial-gradient(ellipse at center, #0A323C 0%, #010A13 100%);
+    background: url('../img/background.jpg') no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
     color: #F0F0F0;
     font-family: 'Noto Sans KR', sans-serif;
 }
@@ -209,6 +213,7 @@ header {
 	font-size: 16px;
 	line-height: 1.6;
     color: #bbb;
+    word-break: keep-all;
 }
 
 #close-modal {
