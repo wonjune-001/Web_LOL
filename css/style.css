@@ -132,11 +132,16 @@ header {
 	animation: fadeInUp 1s 0.5s ease-out backwards; 
     text-align: center;
 }
+
+#intro-lol {
+    display: none;
+}
 .txt { 
     font-size:24px; 
     font-family:'Noto Sans KR', sans-serif; 
     color:#aaa; 
     letter-spacing: 2px;
+    word-break: keep-all;
 }
 .txt b { 
     font-weight: bold;

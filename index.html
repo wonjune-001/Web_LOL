@@ -17,7 +17,7 @@
 	<!-- header -->
 	<header>		
 		<ul id="gnb">
-			<li><a href="#intro-lol"><em>리그오브레전드란 무엇인가</em></a></li>
+			<li><a href="#" id="intro-link"><em>리그오브레전드란 무엇인가</em></a></li>
 			<li>
 				<a href="#"><em>TOP</em></a>
 				<ul class="submenu">
@@ -96,13 +96,23 @@
 	<!-- 챔피언 정보 표시 모달 -->
 	<div id="champion-modal" class="modal-overlay">
 		<div class="modal-content">
-			<img id="champion-image" src="" alt="챔피언 이미지" style="width: 100%; max-height: 250px; object-fit: cover; border-radius: 5px 5px 0 0; margin: -30px -30px 20px -30px;"/>
 			<button id="close-modal"></button>
-			<h3 id="champion-name"></h3>
-			<h4>장점</h4>
-			<p id="champion-strengths"></p>
-			<h4>이럴 때 사용하세요</h4>
-			<p id="champion-usage"></p>
+			
+			<!-- 챔피언 정보 표시 영역 -->
+			<div class="champion-info">
+				<img id="champion-image" src="" alt="챔피언 이미지" style="width: 100%; max-height: 250px; object-fit: cover; object-position: center 25%; border-radius: 5px 5px 0 0; margin: -30px -30px 20px -30px;"/>
+				<h3 id="champion-name"></h3>
+				<h4>장점</h4>
+				<p id="champion-strengths"></p>
+				<h4>이럴 때 사용하세요</h4>
+				<p id="champion-usage"></p>
+			</div>
+
+			<!-- 일반 정보 표시 영역 -->
+			<div class="page-info">
+				<h3 id="page-title"></h3>
+				<p id="page-content"></p>
+			</div>
 		</div>
 	</div>
 	<script src="js/main.js"></script>

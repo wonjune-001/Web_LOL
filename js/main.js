@@ -132,24 +132,61 @@ document.addEventListener('DOMContentLoaded', () => {
     // 필요한 DOM 요소 가져오기
     const modal = document.getElementById('champion-modal');
     const closeModalBtn = document.getElementById('close-modal');
+    const championLinks = document.querySelectorAll('.champion-link');
+    const introLink = document.getElementById('intro-link');
+
+    // 모달 콘텐츠 영역
+    const championInfo = document.querySelector('.champion-info');
+    const pageInfo = document.querySelector('.page-info');
+
+    // 챔피언 정보 요소
     const championImageEl = document.getElementById('champion-image');
     const championNameEl = document.getElementById('champion-name');
     const championStrengthsEl = document.getElementById('champion-strengths');
     const championUsageEl = document.getElementById('champion-usage');
-    const championLinks = document.querySelectorAll('.champion-link');
 
-    // 모달 열기 함수
-    const openModal = (championKr) => {
+    // 일반 정보 요소
+    const pageTitleEl = document.getElementById('page-title');
+    const pageContentEl = document.getElementById('page-content');
+    
+    // 소개 섹션 (숨겨져 있음)
+    const introSection = document.getElementById('intro-lol');
+
+
+    // 챔피언 모달 열기 함수
+    const openChampionModal = (championKr) => {
         const data = championData[championKr] || {
             image: '',
             strengths: '정보를 찾을 수 없습니다.',
             usage: '정보를 찾을 수 없습니다.'
         };
 
+        // 콘텐츠 유형에 따라 표시 전환
+        championInfo.style.display = 'block';
+        pageInfo.style.display = 'none';
+
+        // 데이터 채우기
         championImageEl.src = data.image;
         championNameEl.textContent = championKr;
         championStrengthsEl.textContent = data.strengths;
         championUsageEl.textContent = data.usage;
+
+        modal.style.display = 'flex';
+    };
+
+    // 소개 모달 열기 함수
+    const openIntroModal = () => {
+        // 콘텐츠 유형에 따라 표시 전환
+        championInfo.style.display = 'none';
+        pageInfo.style.display = 'block';
+
+        // 숨겨진 섹션에서 데이터 가져오기
+        const title = introSection.querySelector('h2').textContent;
+        const content = Array.from(introSection.querySelectorAll('p')).map(p => p.outerHTML).join('');
+
+        // 데이터 채우기
+        pageTitleEl.textContent = title;
+        pageContentEl.innerHTML = content;
 
         modal.style.display = 'flex';
     };
@@ -164,8 +201,13 @@ document.addEventListener('DOMContentLoaded', () => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
             const championKr = e.target.dataset.championKr;
-            openModal(championKr);
+            openChampionModal(championKr);
         });
+    });
+
+    introLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        openIntroModal();
     });
 
     closeModalBtn.addEventListener('click', closeModal);
