@@ -17,24 +17,90 @@ body { position:fixed;  width:100%; height:100%; background:#111;}
 /*로고*/
 h1 { position:fixed; top:40px; left:40px; z-index:10;}
 h1 img { width:280px; height:auto;}
-header { width:700px; height:100%; position:fixed; top:0px; left:-420px; background:linear-gradient(-45deg,#e6fc55, #b9fb05, #97e031); transform:skewX(-40deg); }
+/* header */
+header {
+	width: 100%;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 1000;
+	background-color: rgba(10, 10, 10, 0.8); 
+	display: flex;
+	justify-content: center; 
+	padding: 0 20px;
+	box-sizing: border-box;
+}
 
-/* 1depth*/
-#gnb { 	width:220px; position:absolute; top:150px; right:0px;}
-#gnb>li {position:relative; }
-#gnb>li>a { display:block; width:220px; height:50px; font:bold 18px/3 play; color:#222; box-sizing:border-box; padding-right:40px; text-align:right;}
-#gnb>li.on>a { background:#111; color:#fff;}
-#gnb>li:hover>a { background:#111; color:#fff;}
-#gnb em { display:inline-block; transform:skewX(40deg)!important; }
-#gnb em i { 	margin-right:20px;}
+/* Main Navigation Bar */
+#gnb {
+	display: flex;
+	list-style: none;
+}
 
-/* 2depth */
-#gnb ul { position:absolute; left:0px;  top:0px; opacity:0; transition:all 0.4s;}
-#gnb>li:hover ul { opacity:0.8; left:205px; }
-#gnb ul a { display:block; width:150px; height:40px; background:#222; border-bottom:1px solid #b9fb05; font:bold 16px/2.5 arial; color:#fff; box-sizing:border-box; padding-left:50px; margin-bottom:3px; transition:all 0.5s; }
-#gnb ul a:hover { background:#b9fb05; color:#333; }
-#gnb>li.on ul { opacity:0.8; left:205px; top:-10px; }
-#gnb li.on ul a { background:#444; opacity:0.7; } 
+#gnb > li {
+	position: relative; 
+}
+
+#gnb > li > a {
+	display: block;
+	padding: 20px 25px;
+	font: bold 16px/1 'Play', sans-serif;
+	color: #eee;
+	text-decoration: none;
+	transition: background-color 0.3s, color 0.3s;
+}
+
+#gnb > li > a:hover,
+#gnb > li:hover > a {
+	background-color: #b9fb05; 
+	color: #111;
+}
+
+#gnb em {
+	font-style: normal; 
+}
+
+/* Submenu (Champion List) */
+#gnb .submenu {
+	position: absolute;
+	top: 100%; 
+	left: 0;
+	background-color: #222;
+	list-style: none;
+	padding: 10px 0;
+	margin: 0;
+	min-width: 180px;
+	border-radius: 0 0 5px 5px;
+	box-shadow: 0 5px 10px rgba(0,0,0,0.3);
+	z-index: 101; 
+	
+	/* Animation properties */
+	opacity: 0;
+	visibility: hidden;
+	transform: translateY(10px);
+	transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+}
+
+#gnb li:hover > .submenu {
+	opacity: 1;
+	visibility: visible;
+	transform: translateY(0);
+}
+
+#gnb .submenu li a {
+	display: block;
+	padding: 8px 20px;
+	color: #ddd;
+	font-size: 14px;
+	text-decoration: none;
+	transition: background-color 0.3s, color 0.3s, transform 0.3s ease; /* Added transform */
+}
+
+#gnb .submenu li a:hover {
+	background-color: #b9fb05;
+	color: #111;
+	transform: translateX(5px); /* Move right on hover */
+} 
 
 /* sns 버튼 모음*/
 #sns { position:fixed; top:60px; right:50px;}
@@ -43,7 +109,14 @@ header { width:700px; height:100%; position:fixed; top:0px; left:-420px; backgro
 #sns .fa:hover { opacity:1; transform:scale(1.4);}
 
 /* 텍스트 박스 */
-.txtBox { width:340px; height:280px; position:fixed; top:200px; right:70px; }
+.txtBox { 
+	width:340px; 
+	height:280px; 
+	position:fixed; 
+	top:200px; 
+	right:70px; 
+	animation: fadeInUp 1s 0.5s ease-out backwards; /* Added animation */
+}
 .txt { position:absolute; top:200px; right:0px; font-size:34px; font-family:play; color:#bbb; letter-spacing:-2px;}
 .txt b { font:bold 34px arial; color:#b9fb05; 	margin-left:20px;}
 .tit { position:absolute; top:0px; right:0px; font-size:160px; color:#b9fb05; font-family: 'Monoton', cursive; letter-spacing:-1px;}
@@ -78,11 +151,87 @@ header { width:700px; height:100%; position:fixed; top:0px; left:-420px; backgro
 	100% { right:100px; transform:scale(1.5); opacity:0;}
 }
 
+/* Champion Modal Styling */
+.modal-overlay {
+	display: none; /* Hidden by default */
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.7);
+	z-index: 2000;
+	justify-content: center;
+	align-items: center;
+    /* We will use JS to change display to 'flex' to show it */
+}
 
+.modal-content {
+	background-color: #222;
+	color: #eee;
+	padding: 30px;
+	border-radius: 5px;
+	width: 90%;
+	max-width: 600px;
+	box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+	position: relative;
+    animation: fadeIn 0.3s ease-out;
+}
 
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
 
+.modal-content h3 {
+	font-family: 'Play', sans-serif;
+	font-size: 28px;
+	color: #b9fb05;
+	margin-bottom: 20px;
+}
 
+.modal-content h4 {
+	font-family: 'Play', sans-serif;
+	font-size: 18px;
+	color: #fff;
+	margin-top: 20px;
+	margin-bottom: 10px;
+	border-left: 3px solid #b9fb05;
+	padding-left: 10px;
+}
 
+.modal-content p {
+	font-size: 16px;
+	line-height: 1.6;
+}
 
+#close-modal {
+	position: absolute;
+	top: 10px;
+	right: 15px;
+	background: none;
+	border: none;
+	color: #aaa;
+	font-size: 30px;
+	font-weight: bold;
+	cursor: pointer;
+    line-height: 1;
+}
+#close-modal:after {
+	content: '×'; /* A simple 'x' character for the close button */
+}
 
+#close-modal:hover {
+	color: #b9fb05;
+}
 
+@keyframes fadeInUp {
+	from {
+		opacity: 0;
+		transform: translateY(20px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
