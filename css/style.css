@@ -17,6 +17,16 @@ body {
     font-family: 'Noto Sans KR', sans-serif;
 }
 
+@keyframes fade-in-on-load {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+h1, header, #sns, #intro-lol, .txtBox {
+    opacity: 0; /* Initial state for fade-in */
+    animation: fade-in-on-load 1s ease-out forwards; /* Apply fade-in animation */
+}
+
 /* 로고 */
 h1 { 
     position:fixed; 
@@ -28,6 +38,7 @@ h1 {
     color: #C89B3C;
     text-shadow: 0 0 5px rgba(200, 155, 60, 0.5), 0 0 10px rgba(200, 155, 60, 0.3);
     white-space: nowrap;
+    animation-delay: 0.2s; /* Delay for sequential fade-in */
 }
 
 /* header */
@@ -43,7 +54,9 @@ header {
 	justify-content: center; 
 	padding: 0 20px;
 	border-bottom: 1px solid #5B5A56;
+    animation-delay: 0.4s; /* Delay for sequential fade-in */
 }
+
 
 /* Main Navigation Bar */
 #gnb {
@@ -68,6 +81,7 @@ header {
 #gnb > li:hover > a {
 	background-color: #C89B3C; 
 	color: #010A13;
+    transform: scale(1.05); /* Subtle zoom effect */
 }
 
 #gnb em {
@@ -107,17 +121,42 @@ header {
 	color: #ddd;
 	font-size: 14px;
 	text-decoration: none;
-	transition: background-color 0.3s, color 0.3s, transform 0.3s ease;
+	transition: color 0.3s, transform 0.3s ease;
+    position: relative; /* For pseudo-element */
+    overflow: hidden; /* Hide overflowing pseudo-element */
+}
+
+#gnb .submenu li a::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background-color: #C89B3C; /* Highlight color */
+    transition: width 0.3s ease;
+    z-index: -1; /* Behind the text */
+}
+
+#gnb .submenu li a:hover::before {
+    width: 100%;
 }
 
 #gnb .submenu li a:hover {
-	background-color: #C89B3C;
-	color: #010A13;
+	color: #010A13; /* Text color on hover */
 	transform: translateX(5px);
-} 
+}
 
 /* sns 버튼 모음*/
-#sns { position:fixed; top:25px; right:50px; z-index: 1001;}
+#sns { 
+    position:fixed; 
+    top:25px; 
+    right:50px; 
+    z-index: 1001;
+    opacity: 0;
+    animation: fade-in-on-load 1s ease-out forwards;
+    animation-delay: 0.6s; /* Delay for sequential fade-in */
+}
 #sns li { float:left; margin-right:30px;}
 #sns .fa { font-size:22px; color:#C89B3C; opacity:0.7;	transform:scale(1); 	transition:all 0.5s;}
 #sns .fa:hover { opacity:1; transform:scale(1.4);}
@@ -130,12 +169,18 @@ header {
 	top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-	animation: fadeInUp 1s 0.5s ease-out backwards; 
+	/* Removed animation: fadeInUp 1s 0.5s ease-out backwards; */
     text-align: center;
+    opacity: 0;
+    animation: fade-in-on-load 1s ease-out forwards;
+    animation-delay: 1.0s; /* Delay for sequential fade-in */
 }
 
 #intro-lol {
-    display: none;
+    display: none; /* Keep it hidden */
+    opacity: 0;
+    animation: fade-in-on-load 1s ease-out forwards;
+    animation-delay: 0.8s; /* Delay for sequential fade-in */
 }
 .txt { 
     font-size:24px; 
@@ -241,6 +286,35 @@ header {
 
 #close-modal:hover {
 	color: #C89B3C;
+}
+
+#close-modal:hover {
+	color: #C89B3C;
+}
+
+#scrollToTopBtn {
+    display: none; /* Hidden by default */
+    position: fixed; /* Fixed/sticky position */
+    bottom: 30px; /* Place the button at the bottom of the page */
+    right: 30px; /* Place the button 30px from the right */
+    z-index: 99; /* Make sure it does not overlap */
+    border: none; /* Remove borders */
+    outline: none; /* Remove outline */
+    background-color: rgba(200, 155, 60, 0.7); /* Set a background color */
+    color: white; /* Text color */
+    cursor: pointer; /* Add a mouse pointer on hover */
+    padding: 15px; /* Some padding */
+    border-radius: 10px; /* Rounded corners */
+    font-size: 18px; /* Increase font size */
+    transition: background-color 0.3s, opacity 0.3s; /* Smooth transition */
+}
+
+#scrollToTopBtn:hover {
+    background-color: rgba(200, 155, 60, 1); /* Darker background on hover */
+}
+
+#scrollToTopBtn::before {
+    content: '▲'; /* Up arrow character */
 }
 
 @keyframes fadeInUp {

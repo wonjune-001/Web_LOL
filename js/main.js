@@ -202,9 +202,30 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
             const championKr = e.target.dataset.championKr;
             openChampionModal(championKr);
+            });
+        
+            // Get the button
+            const scrollToTopBtn = document.getElementById("scrollToTopBtn");
+        
+            // When the user scrolls down 20px from the top of the document, show the button
+            window.onscroll = function() { scrollFunction() };
+        
+            function scrollFunction() {
+                if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                    scrollToTopBtn.style.display = "block";
+                } else {
+                    scrollToTopBtn.style.display = "none";
+                }
+            }
+        
+            // When the user clicks on the button, scroll to the top of the document
+            scrollToTopBtn.onclick = function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            }
         });
-    });
-
     introLink.addEventListener('click', (e) => {
         e.preventDefault();
         openIntroModal();
@@ -225,5 +246,42 @@ document.addEventListener('DOMContentLoaded', () => {
             closeModal();
         }
     });
+
+    // --- Typing Effect for H1 ---
+    const h1Element = document.querySelector('h1');
+    const originalH1Text = "리그 오브 레전드"; // Store original text
+    h1Element.textContent = ''; // Clear text for typing effect
+
+    let i = 0;
+    function typeWriter() {
+        if (i < originalH1Text.length) {
+            h1Element.textContent += originalH1Text.charAt(i);
+            i++;
+            setTimeout(typeWriter, 150); // Adjust typing speed here (milliseconds)
+        }
+    }
+    setTimeout(typeWriter, 1200); // Start typing after a delay to allow fade-in
+
+    // Get the button
+    const scrollToTopBtn = document.getElementById("scrollToTopBtn");
+
+    // When the user scrolls down 20px from the top of the document, show the button
+    window.onscroll = function() { scrollFunction() };
+
+    function scrollFunction() {
+        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+            scrollToTopBtn.style.display = "block";
+        } else {
+            scrollToTopBtn.style.display = "none";
+        }
+    }
+
+    // When the user clicks on the button, scroll to the top of the document
+    scrollToTopBtn.onclick = function() {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    }
 
 });
