@@ -15,6 +15,7 @@ body {
     background-size: cover;
     color: #F0F0F0;
     font-family: 'Noto Sans KR', sans-serif;
+    cursor: url('https://cdn-store.leagueoflegends.co.kr/images/v2/emotes/1498.png') 16 16, auto; /* Custom Poro cursor with hotspot */
 }
 
 @keyframes fade-in-on-load {
